@@ -406,7 +406,7 @@ static int d3d11va_transfer_data(AVHWFramesContext *ctx, AVFrame *dst,
     if (!s->staging_texture) {
         int res = d3d11va_create_staging_texture(ctx);
         if (res < 0)
-            return res;
+            goto map_failed; // unlock it before returning
     }
 
     staging = (ID3D11Resource *)s->staging_texture;
